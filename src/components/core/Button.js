@@ -1,11 +1,13 @@
 import React from 'react';
 import './Button.css';
 
-const Button = ({ children, isSelected, onClick, className }) => {
+const Button = ({ children, isSelected, onClick }) => {
+    const btnClasses = ['btn'];
+    btnClasses.push(isSelected ? 'btn-primary' : 'btn-outline-primary');
     return (
         <button 
             type="button" 
-            className={className} 
+            className={btnClasses.join(' ')} 
             onClick={onClick}>
                 {children}
         </button>

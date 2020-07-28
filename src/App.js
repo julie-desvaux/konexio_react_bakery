@@ -25,52 +25,35 @@ class App extends React.Component {
     console.log('App#onAdd', price, input);
     let items = this.state.items;
     items.push({input, price})
-    this.setState({ items });
-    console.log('items', items)
-    this.setState({ activeTab: 'list'})
+    this.setState({ 
+      items,
+      activeTab: 'list'
+    });
   }
 
   render() {
     const { activeTab, items } = this.state;
-    let renderActiveTab = '';
-    let classNameAdd = 'btn btn-primary';
-    let classNameList = 'btn btn-outline-secondary';
-    let classNamePay = 'btn btn-outline-secondary';
-
-    if(activeTab === 'add') {
-      renderActiveTab = <Add onAdd={this.onAdd}/>
-      classNameAdd = 'btn btn-primary';
-      classNameList = 'btn btn-outline-secondary';
-      classNamePay = 'btn btn-outline-secondary';
-    } else if (activeTab === 'list') {
-      renderActiveTab = <List list={items}/>
-      classNameAdd = 'btn btn-outline-secondary';
-      classNameList = 'btn btn-primary';
-      classNamePay = 'btn btn-outline-secondary';
-    } else if (activeTab === 'pay'){
-      renderActiveTab = <Pay list={items}/>
-      classNameAdd = 'btn btn-outline-secondary';
-      classNameList = 'btn btn-outline-secondary';
-      classNamePay = 'btn btn-primary';
-    }
-
+    console.log('activeTab', activeTab)
+    console.log('this.renderTabAdd', this.renderTabAdd)
+    console.log('this.renderTabList', this.renderTabList)
+    console.log('this.renderTabPay', this.renderTabPay)
     return(
       <div className="container">
         <div className="row">
           <div className="col-lg-6 col-12">
             <h1 className="text-center">Bakery</h1>
             <Button 
-              className={classNameAdd} 
+              isSelected={activeTab === 'add'}
               onClick={(e) => this.onClick('add')}> 
                 Add
             </Button>
             <Button 
-              className={classNameList} 
+              isSelected={activeTab === 'list'}
               onClick={(e) => this.onClick('list')}>
                 List
             </Button>
             <Button 
-              className={classNamePay} 
+              isSelected={activeTab === 'pay'}
               onClick={(e) => this.onClick('pay')}>
                 Pay
             </Button>
@@ -78,7 +61,12 @@ class App extends React.Component {
         </div>
         <div className="row">
           <div className="col-lg-6 col-12">
-            {renderActiveTab}
+            {/* {activeTab === 'add' ? <Add /> : null}
+            {activeTab === 'list' ? <List /> : null}
+            {activeTab === 'pay' ? <Pay /> : null} */}
+            {activeTab === 'add' && <Add onAdd={this.onAdd} />}
+            {activeTab === 'list' && <List list={items} />}
+            {activeTab === 'pay' && <Pay list={items} />}
           </div> 
         </div>
       </div>
